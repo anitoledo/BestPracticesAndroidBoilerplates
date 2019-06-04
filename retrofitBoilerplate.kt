@@ -4,9 +4,13 @@ private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
 
-private val interceptor  = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
+private val interceptor  = HttpLoggingInterceptor()
+    .setLevel(HttpLoggingInterceptor.Level.BODY)
+    .setLevel(HttpLoggingInterceptor.Level.HEADERS)
 
-private val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+private val client = OkHttpClient.Builder()
+    .addInterceptor(interceptor)
+    .addInterceptor(LogJsonInterceptor())
 
 private val retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create(moshi))
