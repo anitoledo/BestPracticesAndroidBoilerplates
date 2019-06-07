@@ -5,8 +5,9 @@ abstract class NameDatabase : RoomDatabase() {
     abstract val classDao: ClassDao
 
     companion object {
-        private var INSTANCE: NameDatabase? = null
         @Volatile
+        private var INSTANCE: NameDatabase? = null
+        
         fun getInstance(context: Context): NameDatabase {
             synchronized(this) {
                 var instance = INSTANCE
